@@ -17,8 +17,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       builder: (context, child) => ResponsiveWrapper.builder(
         child,
-        maxWidth: 1200,
-        minWidth: 480,
         defaultScale: true,
         breakpoints: [
           const ResponsiveBreakpoint.resize(480, name: MOBILE),
@@ -30,7 +28,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Marcos Gamarra',
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xff352e45),
       ),
