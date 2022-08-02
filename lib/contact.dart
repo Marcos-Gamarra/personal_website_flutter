@@ -34,7 +34,7 @@ class _ContactState extends State<Contact> {
         GestureDetector(
           onTap: () {
             html.window
-                .open('https://github.com/MarcosGamarra', 'new tab');
+                .open('https://github.com/marcos-gamarra', 'new tab');
           },
           child: MouseRegion(
             cursor: cursor,
@@ -55,7 +55,7 @@ class _ContactState extends State<Contact> {
                     ),
                   ),
                   TextSpan(
-                    text: "github.com/MarcosGamarra",
+                    text: "github.com/marcos-gamarra",
                   ),
                 ],
               ),
