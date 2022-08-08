@@ -37,6 +37,7 @@ dependencies:
   html: ^0.15.0
   font_awesome_flutter: ^10.1.0
   responsive_framework: ^0.2.0
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:

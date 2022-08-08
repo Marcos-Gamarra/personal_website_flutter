@@ -5,6 +5,7 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'greeting_page.dart';
 import 'about.dart';
 import 'contact.dart';
+import 'wordle/wordle.dart';
 
 void main() {
   runApp(const MyApp());
@@ -213,6 +214,7 @@ class _HomePageState extends State<HomePage> {
                   GreetingPage(),
                   About(),
                   Contact(),
+                  Wordle(),
                 ],
               ),
             ),
