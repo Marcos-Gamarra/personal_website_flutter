@@ -7,7 +7,7 @@ Future<String> getTarget(http.Client client) async {
 }
 
 Future<bool> isValidGuess(http.Client client, String guess) async {
-  String host = "192.168.0.19:8080";
+  String host = "181.127.68.241:443";
   String path = "/is_valid_guess/$guess";
   var response = await client.get(Uri.http(host, path));
   if (response.body == "1") {
