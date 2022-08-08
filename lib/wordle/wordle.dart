@@ -147,64 +147,67 @@ class _WordleState extends State<Wordle> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     double size = width > height ? height : width;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        Text(
-          "Wordle",
-          style: TextStyle(
-            fontSize: 40,
-            fontWeight: FontWeight.bold,
-            color: Colors.grey[300],
-          ),
-        ),
-        SizedBox(
-          width: size * 0.4,
-          height: size * 0.4,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              WordleRow(word: words[0], colors: colors[0]),
-              WordleRow(word: words[1], colors: colors[1]),
-              WordleRow(word: words[2], colors: colors[2]),
-              WordleRow(word: words[3], colors: colors[3]),
-              WordleRow(word: words[4], colors: colors[4]),
-            ],
-          ),
-        ),
-        SizedBox(
-          width: size * 0.5,
-          child: IgnorePointer(
-            ignoring: isIgnoring,
-            child: TextField(
-              textAlign: TextAlign.center,
-              focusNode: focusNode,
-              controller: controller,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(size * 0.05),
-                ),
-                errorText: errorText,
-              ),
-              maxLength: 5,
-              onChanged: (input) {
-                handleInput(input);
-              },
-              onSubmitted: (input) {
-                handleSubmission(input);
-              },
+    return GestureDetector(
+      onTap: () => focusNode.unfocus(),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Text(
+            "Wordle",
+            style: TextStyle(
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey[300],
             ),
           ),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            playGame();
-          },
-          child: const Text("Play Game"),
-        ),
-      ],
+          SizedBox(
+            width: size * 0.4,
+            height: size * 0.4,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                WordleRow(word: words[0], colors: colors[0]),
+                WordleRow(word: words[1], colors: colors[1]),
+                WordleRow(word: words[2], colors: colors[2]),
+                WordleRow(word: words[3], colors: colors[3]),
+                WordleRow(word: words[4], colors: colors[4]),
+              ],
+            ),
+          ),
+          SizedBox(
+            width: size * 0.5,
+            child: IgnorePointer(
+              ignoring: isIgnoring,
+              child: TextField(
+                textAlign: TextAlign.center,
+                focusNode: focusNode,
+                controller: controller,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(size * 0.05),
+                  ),
+                  errorText: errorText,
+                ),
+                maxLength: 5,
+                onChanged: (input) {
+                  handleInput(input);
+                },
+                onSubmitted: (input) {
+                  handleSubmission(input);
+                },
+              ),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              playGame();
+            },
+            child: const Text("Play Game"),
+          ),
+        ],
+      ),
     );
   }
 }
