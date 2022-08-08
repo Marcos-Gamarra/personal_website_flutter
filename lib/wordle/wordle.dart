@@ -145,8 +145,10 @@ class _WordleState extends State<Wordle> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height * 0.6;
+    double height = MediaQuery.of(context).size.height;
+    double size = width > height ? height : width;
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Text(
           "Wordle",
@@ -156,65 +158,51 @@ class _WordleState extends State<Wordle> {
             color: Colors.grey[300],
           ),
         ),
-        Align(
-          alignment: Alignment.topCenter,
-          child: SizedBox(
-            width: width > height ? height : width,
-            height: width > height ? height : width,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                WordleRow(word: words[0], colors: colors[0]),
-                WordleRow(word: words[1], colors: colors[1]),
-                WordleRow(word: words[2], colors: colors[2]),
-                WordleRow(word: words[3], colors: colors[3]),
-                WordleRow(word: words[4], colors: colors[4]),
-              ],
-            ),
+        SizedBox(
+          width: size * 0.4,
+          height: size * 0.4,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              WordleRow(word: words[0], colors: colors[0]),
+              WordleRow(word: words[1], colors: colors[1]),
+              WordleRow(word: words[2], colors: colors[2]),
+              WordleRow(word: words[3], colors: colors[3]),
+              WordleRow(word: words[4], colors: colors[4]),
+            ],
           ),
         ),
-        Expanded(
-          child: Center(
-            child: SizedBox(
-              width: width * 0.3,
-              child: IgnorePointer(
-                ignoring: isIgnoring,
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 20.0,
-                  ),
-                  focusNode: focusNode,
-                  controller: controller,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    errorText: errorText,
-                  ),
-                  maxLength: 5,
-                  onChanged: (input) {
-                    handleInput(input);
-                  },
-                  onSubmitted: (input) {
-                    handleSubmission(input);
-                  },
+        SizedBox(
+          width: size * 0.5,
+          child: IgnorePointer(
+            ignoring: isIgnoring,
+            child: TextField(
+              textAlign: TextAlign.center,
+              focusNode: focusNode,
+              controller: controller,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(size * 0.05),
                 ),
+                errorText: errorText,
               ),
+              maxLength: 5,
+              onChanged: (input) {
+                handleInput(input);
+              },
+              onSubmitted: (input) {
+                handleSubmission(input);
+              },
             ),
           ),
         ),
-        Container(
-          padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
-          child: ElevatedButton(
-            onPressed: () {
-              playGame();
-            },
-            child: const Text("Play Game"),
-          ),
+        ElevatedButton(
+          onPressed: () {
+            playGame();
+          },
+          child: const Text("Play Game"),
         ),
       ],
     );
@@ -262,15 +250,19 @@ class LetterBox extends StatefulWidget {
 class _LetterBoxState extends State<LetterBox> {
   @override
   Widget build(BuildContext context) {
+    double size =
+        MediaQuery.of(context).size.width > MediaQuery.of(context).size.height
+            ? MediaQuery.of(context).size.height
+            : MediaQuery.of(context).size.width;
     return Container(
       color: widget.color,
-      height: 62,
-      width: 62,
+      width: size * 0.06,
+      height: size * 0.06,
       child: Center(
         child: Text(
           widget.letter,
-          style: const TextStyle(
-            fontSize: 25,
+          style: TextStyle(
+            fontSize: size * 0.04,
             fontWeight: FontWeight.bold,
           ),
         ),
