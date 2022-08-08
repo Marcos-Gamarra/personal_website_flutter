@@ -31,7 +31,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Marcos Gamarra',
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xff352e45),
+        //scaffoldBackgroundColor: const Color(0xff352e45),
+        scaffoldBackgroundColor: const Color(0xff5d0096),
       ),
       home: const HomePage(),
     );
@@ -73,13 +74,13 @@ class _HomePageState extends State<HomePage> {
   Widget forwardButton(int currentIndex, PageController controller) {
     return Align(
       alignment: Alignment.centerRight,
-      child: currentIndex != 2
+      child: currentIndex != 3
           ? IconButton(
               hoverColor: const Color(0xff3a324d),
               icon: Icon(
                 Icons.arrow_forward_ios_outlined,
                 color:
-                    currentIndex == 2 ? Colors.transparent : Colors.grey[600],
+                    currentIndex == 3 ? Colors.transparent : Colors.grey[600],
               ),
               onPressed: () {
                 controller.nextPage(
@@ -98,7 +99,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final PageController controller = PageController();
     return Scaffold(
-      extendBodyBehindAppBar: true,
+      //extendBodyBehindAppBar: true,
       appBar: AppBar(
         leading: Builder(builder: (context) {
           return IconButton(
@@ -181,6 +182,29 @@ class _HomePageState extends State<HomePage> {
                     curve: Curves.ease,
                   );
                   setState(() => currentIndex = 2);
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(
+                  Icons.sports_esports,
+                  color: Colors.white,
+                ),
+                title: const Text(
+                  'Wordle',
+                  //textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                  ),
+                ),
+                onTap: () {
+                  controller.animateToPage(
+                    3,
+                    duration: const Duration(seconds: 1),
+                    curve: Curves.ease,
+                  );
+                  setState(() => currentIndex = 3);
                   Navigator.pop(context);
                 },
               ),

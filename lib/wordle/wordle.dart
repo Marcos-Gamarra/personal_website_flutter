@@ -148,10 +148,17 @@ class _WordleState extends State<Wordle> {
     double height = MediaQuery.of(context).size.height * 0.6;
     return Column(
       children: <Widget>[
+        Text(
+          "Wordle",
+          style: TextStyle(
+            fontSize: 40,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey[300],
+          ),
+        ),
         Align(
           alignment: Alignment.topCenter,
           child: SizedBox(
-            //color: Colors.blue,
             width: width > height ? height : width,
             height: width > height ? height : width,
             child: Column(
@@ -173,10 +180,19 @@ class _WordleState extends State<Wordle> {
               child: IgnorePointer(
                 ignoring: isIgnoring,
                 child: TextField(
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 20.0,
+                  ),
                   focusNode: focusNode,
                   controller: controller,
                   decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
+                    contentPadding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
                     errorText: errorText,
                   ),
                   maxLength: 5,
@@ -191,11 +207,14 @@ class _WordleState extends State<Wordle> {
             ),
           ),
         ),
-        ElevatedButton(
-          onPressed: () {
-            playGame();
-          },
-          child: const Text("Play Game"),
+        Container(
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
+          child: ElevatedButton(
+            onPressed: () {
+              playGame();
+            },
+            child: const Text("Play Game"),
+          ),
         ),
       ],
     );
