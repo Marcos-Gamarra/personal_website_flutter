@@ -47,7 +47,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int currentIndex = 0;
+  int currentIndex = 0; // 0 = greeting, 1 = about, 2 = contact
+
 
   Widget backwardButton(int currentIndex, PageController controller) {
     return Align(
@@ -218,7 +219,7 @@ class _HomePageState extends State<HomePage> {
             onPointerDown: (details) {
               setState(() {
                 cursor = SystemMouseCursors.grabbing;
-		FocusScope.of(context).unfocus();
+                FocusScope.of(context).unfocus();
               });
             },
             onPointerUp: (details) {
