@@ -14,8 +14,8 @@ class _WordleState extends State<Wordle> {
   final TextEditingController _controller = TextEditingController();
   FocusNode focusNode = FocusNode();
 
-  // true = textfield is ignored, false = textfield is not ignored
-  bool isIgnored = true;
+  //true if the textfield is active
+  bool isGameActive = false;
 
   int currentRow =
       0; // row that is taking input. 0 = top row, 1 = second row, ... , 4 = bottom row
@@ -82,7 +82,7 @@ class _WordleState extends State<Wordle> {
       target = await net.getTarget(client);
     } finally {
       setState(() {
-        isIgnored = false;
+        isGameActive = true;
       });
       focusNode.requestFocus();
     }
@@ -127,7 +127,7 @@ class _WordleState extends State<Wordle> {
     errorText = null;
     if (isGuessCorrect(input)) {
       setState(() {
-        isIgnored = true;
+        isGameActive = false;
       });
       _controller.clear();
       if (!mounted) return;
@@ -140,7 +140,7 @@ class _WordleState extends State<Wordle> {
     if (currentRow == 4) {
       setState(() {
         currentRow++;
-        isIgnored = true;
+        isGameActive = false;
       });
       focusNode.unfocus();
       if (!mounted) return;
@@ -209,8 +209,10 @@ class _WordleState extends State<Wordle> {
           width: size * 0.5,
           height: size * 0.1,
           child: Center(
+            //if textfield is not enabled, it cannot be enabled and receive focus at the same time
+            //so IgnorePointer is used to keep the textfield focused but not clickable
             child: IgnorePointer(
-              ignoring: isIgnored,
+              ignoring: !isGameActive,
               child: TextField(
                 textAlign: TextAlign.center,
                 focusNode: focusNode,
@@ -238,13 +240,14 @@ class _WordleState extends State<Wordle> {
           ),
         ),
         ElevatedButton(
-          //if currentRow is the first row, show play button, else show submit button
-          onPressed: currentRow == 0 ? playGame : () {
-            handleSubmission(_controller.text);
-          },
-          child: isIgnored
-              ? const Text("Play")
-              : const Text("Send"),
+          //if game is active, handle submission, else play new game
+          onPressed: isGameActive
+              ? () {
+                  handleSubmission(_controller.text);
+                }
+              : playGame,
+          //if game is active show "Send", else show "Play"
+          child: isGameActive ? const Text("Send") : const Text("Play"),
         ),
       ],
     );
