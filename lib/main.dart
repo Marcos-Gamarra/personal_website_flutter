@@ -218,6 +218,7 @@ class _HomePageState extends State<HomePage> {
             onPointerDown: (details) {
               setState(() {
                 cursor = SystemMouseCursors.grabbing;
+		FocusScope.of(context).unfocus();
               });
             },
             onPointerUp: (details) {
