@@ -206,7 +206,7 @@ class _WordleState extends State<Wordle> {
         ),
         SizedBox(
           width: size * 0.5,
-          height: size * 0.08,
+          height: height * 0.1,
           child: Center(
             child: IgnorePointer(
               ignoring: isIgnored,
