@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         leading: Builder(builder: (context) {
           return IconButton(
-            icon: const Icon(Icons.home),
+            icon: const Icon(Icons.menu),
             color: Colors.grey[300],
             onPressed: () {
               FocusScope.of(context).unfocus();
