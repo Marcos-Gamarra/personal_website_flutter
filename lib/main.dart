@@ -48,7 +48,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int currentIndex = 0; // 0 = greeting, 1 = about, 2 = contact
 
-
   Widget backwardButton(int currentIndex, PageController controller) {
     return Align(
       alignment: Alignment.centerLeft,
@@ -103,9 +102,12 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         leading: Builder(builder: (context) {
           return IconButton(
-            icon: const Icon(Icons.menu),
+            icon: const Icon(Icons.home),
             color: Colors.grey[300],
-            onPressed: () => Scaffold.of(context).openDrawer(),
+            onPressed: () {
+              FocusScope.of(context).unfocus();
+              Scaffold.of(context).openDrawer();
+            },
           );
         }),
         backgroundColor: Colors.transparent,

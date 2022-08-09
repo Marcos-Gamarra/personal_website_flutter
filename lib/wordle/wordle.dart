@@ -17,8 +17,9 @@ class _WordleState extends State<Wordle> {
   //true if the textfield is active
   bool isGameActive = false;
 
-  int currentRow =
-      0; // row that is taking input. 0 = top row, 1 = second row, ... , 4 = bottom row
+  int currentRow = 0;
+  // row that is taking input. 0 = top row, 1 = second row, ... , 4 = bottom row
+
   var target = ""; // target word to be searched
   String? errorText;
   http.Client client = http.Client();
