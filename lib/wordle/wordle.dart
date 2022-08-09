@@ -169,6 +169,7 @@ class _WordleState extends State<Wordle> {
       }
     }
     if (target == input) {
+      currentRow = 0;
       return true;
     }
     return false;
@@ -206,7 +207,7 @@ class _WordleState extends State<Wordle> {
         ),
         SizedBox(
           width: size * 0.5,
-          height: height * 0.1,
+          height: size * 0.1,
           child: Center(
             child: IgnorePointer(
               ignoring: isIgnored,
@@ -217,13 +218,6 @@ class _WordleState extends State<Wordle> {
                 decoration: InputDecoration(
                   counterStyle: TextStyle(
                     color: Colors.grey[300],
-                  ),
-                  suffixIcon: IconButton(
-                    padding: const EdgeInsets.only(right: 15),
-                    icon: const Icon(Icons.send),
-                    onPressed: () {
-                      handleSubmission(_controller.text);
-                    },
                   ),
                   filled: true,
                   fillColor: Colors.white,
@@ -244,12 +238,13 @@ class _WordleState extends State<Wordle> {
           ),
         ),
         ElevatedButton(
-          //disable button while currentRow is different than 0
-          onPressed: playGame,
-          //change label to restart when currentRow is different than 0
-          child: currentRow == 0
+          //if currentRow is the first row, show play button, else show submit button
+          onPressed: currentRow == 0 ? playGame : () {
+            handleSubmission(_controller.text);
+          },
+          child: isIgnored
               ? const Text("Play")
-              : const Text("Start a new game"),
+              : const Text("Send"),
         ),
       ],
     );
