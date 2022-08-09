@@ -147,11 +147,11 @@ class _WordleState extends State<Wordle> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     double size = width > height ? height : width;
-    return SizedBox(
-      height: height,
-      width: width,
-      child: GestureDetector(
-        onTap: () => focusNode.unfocus(),
+    return GestureDetector(
+      onTap: () => focusNode.unfocus(),
+      child: SizedBox(
+        height: height,
+        width: width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
