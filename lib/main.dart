@@ -31,8 +31,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Marcos Gamarra',
       theme: ThemeData(
-        //scaffoldBackgroundColor: const Color(0xff352e45),
-        scaffoldBackgroundColor: const Color(0xff5d0096),
+        scaffoldBackgroundColor: const Color(0xff4d1f73),
       ),
       home: const HomePage(),
     );
