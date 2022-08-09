@@ -13,8 +13,10 @@ class Wordle extends StatefulWidget {
 class _WordleState extends State<Wordle> {
   final TextEditingController _controller = TextEditingController();
   FocusNode focusNode = FocusNode();
-  bool isIgnored =
-      true; // true = textfield is ignored, false = textfield is not ignored
+
+  // true = textfield is ignored, false = textfield is not ignored
+  bool isIgnored = true;
+
   int currentRow =
       0; // row that is taking input. 0 = top row, 1 = second row, ... , 4 = bottom row
   var target = ""; // target word to be searched
@@ -37,7 +39,7 @@ class _WordleState extends State<Wordle> {
     _controller.dispose();
     super.dispose();
   }
-  
+
   //rows in the grid, each containing a list of 5 letters
   List rows = [
     List<String>.filled(5, ""),
@@ -154,7 +156,7 @@ class _WordleState extends State<Wordle> {
     }
   }
 
-  //check if input is the target word, if yes, return true, else return false and paint boxes 
+  //check if input is the target word, if yes, return true, else return false and paint boxes
   //according to the letters in the input
   bool isGuessCorrect(String input) {
     for (var i = 0; i < target.length; i++) {
@@ -204,42 +206,57 @@ class _WordleState extends State<Wordle> {
         ),
         SizedBox(
           width: size * 0.5,
-          child: IgnorePointer(
-            ignoring: isIgnored,
-            child: TextField(
-              textAlign: TextAlign.center,
-              focusNode: focusNode,
-              controller: _controller,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(size * 0.05),
+          height: size * 0.08,
+          child: Center(
+            child: IgnorePointer(
+              ignoring: isIgnored,
+              child: TextField(
+                textAlign: TextAlign.center,
+                focusNode: focusNode,
+                controller: _controller,
+                decoration: InputDecoration(
+                  counterStyle: TextStyle(
+                    color: Colors.grey[300],
+                  ),
+                  suffixIcon: IconButton(
+                    padding: const EdgeInsets.only(right: 15),
+                    icon: const Icon(Icons.send),
+                    onPressed: () {
+                      handleSubmission(_controller.text);
+                    },
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(size * 0.05),
+                  ),
+                  errorText: errorText,
                 ),
-                errorText: errorText,
+                maxLength: 5,
+                onChanged: (input) {
+                  handleInput(input);
+                },
+                onSubmitted: (input) {
+                  handleSubmission(input);
+                },
               ),
-              maxLength: 5,
-              onChanged: (input) {
-                handleInput(input);
-              },
-              onSubmitted: (input) {
-                handleSubmission(input);
-              },
             ),
           ),
         ),
         ElevatedButton(
-          onPressed: () {
-            playGame();
-          },
-          child: const Text("Play"),
+          //disable button while currentRow is different than 0
+          onPressed: playGame,
+          //change label to restart when currentRow is different than 0
+          child: currentRow == 0
+              ? const Text("Play")
+              : const Text("Start a new game"),
         ),
       ],
     );
   }
 }
 
-//row widget for the grid 
+//row widget for the grid
 //takes in a list of letters and a list of colors and builds a row of LetterBoxes with them
 class WordleRow extends StatefulWidget {
   const WordleRow({Key? key, required this.word, required this.colors})
